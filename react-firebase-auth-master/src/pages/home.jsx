@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithPopup
+  signInWithPopup,
 } from "firebase/auth";
 
 import { FaGoogle } from "react-icons/fa";
@@ -24,19 +24,22 @@ export const Home = ({ user }) => {
   const [popupMessage, setPopupMessage] = useState("");
   const [userName, setUserName] = useState("");
   const [isSignUpActive, setIsSignUpActive] = useState(true);
+ 
+
+ 
   const handleMethodChange = () => {
     setIsSignUpActive(!isSignUpActive);
   };
 
-const handleSignInWithGoogle =() =>{
-  signInWithPopup(auth,provider).then((res)=>{
-    const credential = GoogleAuthProvider.credentialFromResult(res);
-    const token = credential.accessToken;
-    
-    const user = res.user;
-    console.log(user)
-  })
-}
+  const handleSignInWithGoogle = () => {
+    signInWithPopup(auth, provider).then((res) => {
+      const credential = GoogleAuthProvider.credentialFromResult(res);
+      const token = credential.accessToken;
+
+      const user = res.user;
+      console.log(user);
+    });
+  };
 
   const handleSignUp = () => {
     if (!email || !password) {
@@ -78,6 +81,8 @@ const handleSignInWithGoogle =() =>{
       });
   };
 
+
+
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
   const handleConfirmPasswordChange = (event) =>
@@ -87,6 +92,7 @@ const handleSignInWithGoogle =() =>{
   if (user) {
     return <Navigate to="/private"></Navigate>;
   }
+
   return (
     <section className="formContainer">
       <form>
@@ -104,19 +110,20 @@ const handleSignInWithGoogle =() =>{
 
         <fieldset className="formList">
           <ul>
-            {isSignUpActive &&(
-            <li>
-              <label htmlFor="name" className="inputTextLabel">
-                Nome
-              </label>
-              <input
-                type="text"
-                id="name"
-                className="inputText"
-                placeholder="Jorge Antônio"
-                onChange={handleNameChange}
-              />
-            </li>)}
+            {isSignUpActive && (
+              <li>
+                <label htmlFor="name" className="inputTextLabel">
+                  Nome
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  className="inputText"
+                  placeholder="Jorge Antônio"
+                  onChange={handleNameChange}
+                />
+              </li>
+            )}
             <li>
               <label htmlFor="email" className="inputTextLabel">
                 Email
@@ -167,8 +174,12 @@ const handleSignInWithGoogle =() =>{
               Entrar
             </button>
           )}
-           {!isSignUpActive && (
-            <button type="button" className="submitBtn" onClick={handleSignInWithGoogle}>
+          {!isSignUpActive && (
+            <button
+              type="button"
+              className="submitBtn"
+              onClick={handleSignInWithGoogle}
+            >
               Entrar com o Google <FaGoogle />
             </button>
           )}
@@ -189,6 +200,8 @@ const handleSignInWithGoogle =() =>{
             </a>
           </p>
         )}
+
+<Link to="/admlogin">sou administrador</Link>
       </form>
     </section>
   );

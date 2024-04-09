@@ -5,6 +5,7 @@ import { auth } from "./firebase";
 import { ProtectedRoute } from "./components/protectedRoute";
 import { Home } from "./pages/home";
 import { Private } from "./pages/private";
+import {AdmLogin} from './pages/AdmLogin'
 
 import "./App.css";
 import { useEffect, useState } from "react";
@@ -34,11 +35,13 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route index path="/" element={<Home user={user}></Home>}></Route>
+        <Route path="/admlogin" element={<AdmLogin />}></Route>
+
         <Route
           path="/private"
           element={
             <ProtectedRoute user={user}>
-              <Private></Private>
+              <Private user={user}></Private>
             </ProtectedRoute>
           }
         ></Route>
