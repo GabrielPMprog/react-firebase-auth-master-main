@@ -6,6 +6,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
+  sendEmailVerification,
+  sendSignInLinkToEmail,
 } from "firebase/auth";
 
 import { FaGoogle } from "react-icons/fa";
@@ -24,9 +26,13 @@ export const Home = ({ user }) => {
   const [popupMessage, setPopupMessage] = useState("");
   const [userName, setUserName] = useState("");
   const [isSignUpActive, setIsSignUpActive] = useState(true);
- 
 
- 
+  // const handleSignInWithLinkToEmail = ()=>{
+  //   sendSignInLinkToEmail(auth,email,actionConfig).then(()=>{
+  //     window.localStorage.setItem('emailForSignIn', email);
+  //   })
+  // }
+
   const handleMethodChange = () => {
     setIsSignUpActive(!isSignUpActive);
   };
@@ -80,8 +86,6 @@ export const Home = ({ user }) => {
         console.log(errorCode, errorMessage);
       });
   };
-
-
 
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
@@ -201,7 +205,7 @@ export const Home = ({ user }) => {
           </p>
         )}
 
-<Link to="/admlogin">sou administrador</Link>
+        <Link to="/admlogin">sou administrador</Link>
       </form>
     </section>
   );
