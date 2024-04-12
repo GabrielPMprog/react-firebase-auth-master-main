@@ -1,6 +1,10 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 
+// Pages
+import { ClientDashboard } from "./ClientDashboard";
+import { DisabledClientDashboard } from "./DisabledClientDashboard";
+
 import '../styles/private.css'
 
 export const Private = (props) => {
@@ -11,7 +15,8 @@ export const Private = (props) => {
   };
 
   return (
-    <section className="privateContainer">
+    <section className= 'privateContainer'>
+      {auth.currentUser.emailVerified  ? <ClientDashboard /> : <DisabledClientDashboard />}
       <h2>Bem vindo, {props.user.displayName}!</h2>
       <button onClick={handleSignOut}>Sign Out</button>
     <input type="file" />

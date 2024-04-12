@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   sendEmailVerification,
+  sendPasswordResetEmail,
   sendSignInLinkToEmail,
 } from "firebase/auth";
 
@@ -24,6 +25,7 @@ export const Home = ({ user }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [popupMessage, setPopupMessage] = useState("");
+  const [popupTimer, setPopupTimer] = useState("disabledPopup")
   const [userName, setUserName] = useState("");
   const [isSignUpActive, setIsSignUpActive] = useState(true);
 
@@ -49,27 +51,39 @@ export const Home = ({ user }) => {
 
   const handleSignUp = () => {
     if (!email || !password) {
-      setPopupMessage("O e-mail e senha não conferem!");
+      handleChangePopup("Preencha o formulário de forma completa!");
       return;
     }
     if (password != confirmPassword) {
-      setPopupMessage("as senhas não conferem!");
+      handleChangePopup("as senhas não conferem!");
       return;
     }
+
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        sendEmailVerification(auth.currentUser).then(() => {
+          alert(
+            `Mensagem de verificação enviada ao email: ${auth.currentUser.email}`
+          );
+        });
+
         const user = userCredential.user;
         userCredential.user.displayName = userName;
         console.log(user);
       })
       .catch((error) => {
         const errorCode = error.code;
+        console.log(errorCode);
+
+        if (errorCode == "auth/invalid-email") {
+          handleChangePopup("Digite um e-mail válido");
+        }
+
         if (errorCode == "auth/weak-password") {
-          setPopupMessage(
+          handleChangePopup(
             "Senha fraca, a senha deve conter no minimo 6 caracteres."
           );
         }
-        console.log(errorCode);
       });
   };
 
@@ -82,10 +96,45 @@ export const Home = ({ user }) => {
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        if (errorCode == "auth/invalid-login-credentials") {
+          handleChangePopup("O e-mail e senha não conferem!");
+        }
+        if (errorCode == "auth/invalid-email") {
+          handleChangePopup("Digite um e-mail válido");
+        }
+        if (errorCode == "auth/missing-password") {
+          handleChangePopup("Preencha o campo da senha");
+        }
+        if (errorCode == "auth/invalid-login-credentials") {
+          handleChangePopup("Login e senha não conferem");
+        }
+        if(errorCode == "auth/too-many-requests"){
+          handleChangePopup("Atualize a página e espere alguns segundos")
+        }
+        console.log(errorCode);
       });
   };
+
+  const handleForgotPassword = () => { 
+    sendPasswordResetEmail(auth, email).then(() => {
+      alert(
+        `Um email de verificação foi enviado ao seu e-mail: ${email}!`
+      );
+    }).catch((err)=>{
+      const errorCode = err.code
+      if(errorCode == 'auth/missing-email'){
+        handleChangePopup('Digite seu e-mail')
+      }
+      console.log(errorCode)
+    });
+  };
+
+  const handleChangePopup = (message)=>{
+    setPopupMessage(message)
+    setTimeout(()=>{setPopupTimer("abledPopup")}, 3000)
+    setPopupTimer('disabledPopup')
+
+  }
 
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
@@ -108,10 +157,14 @@ export const Home = ({ user }) => {
             <legend className="legend">Registre-se</legend>
           </div>
         )}
-        {!isSignUpActive && <legend className="legend">Login</legend>}
-
-        <span>{popupMessage}</span>
-
+        {!isSignUpActive && (
+          <div className="legendContainer">
+            <legend className="legend">Login</legend>
+          </div>
+        )}
+        <div className="popupMessage">
+          <span className={popupTimer}>{popupMessage}</span>
+        </div>
         <fieldset className="formList">
           <ul>
             {isSignUpActive && (
@@ -123,8 +176,9 @@ export const Home = ({ user }) => {
                   type="text"
                   id="name"
                   className="inputText"
-                  placeholder="Jorge Antônio"
+                  placeholder="Digite seu nome completo"
                   onChange={handleNameChange}
+                  required
                 />
               </li>
             )}
@@ -138,6 +192,7 @@ export const Home = ({ user }) => {
                 className="inputText"
                 placeholder="exemplo@gmail.com"
                 onChange={handleEmailChange}
+                required
               />
             </li>
             <li>
@@ -150,6 +205,7 @@ export const Home = ({ user }) => {
                 onChange={handlePasswordChange}
                 className="inputText"
                 placeholder="************"
+                required
               />
             </li>
             {isSignUpActive && (
@@ -163,6 +219,7 @@ export const Home = ({ user }) => {
                   onChange={handleConfirmPasswordChange}
                   className="inputText"
                   placeholder="************"
+                  required
                 />
               </li>
             )}
@@ -204,8 +261,14 @@ export const Home = ({ user }) => {
             </a>
           </p>
         )}
-
-        <Link to="/admlogin">sou administrador</Link>
+        {!isSignUpActive && (
+          <p>
+            Esqueçeu sua senha?{" "}
+            <a className="link" onClick={handleForgotPassword}>
+              Clique aqui
+            </a>
+          </p>
+        )}
       </form>
     </section>
   );

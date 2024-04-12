@@ -67,9 +67,26 @@
   padding: 10px;
   border-radius: 5px;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 
 .link {
   cursor: pointer;
   color: rgb(49, 49, 249);
+}
+
+.popupMessage {
+  display: flex;
+  justify-content: center;
+  color: red;
+  padding: 8px;
+  margin: 15px 0px;
+}
+
+.disabledPopup {
+  display: flex;
+}
+
+.abledPopup {
+  display: none;
 }
