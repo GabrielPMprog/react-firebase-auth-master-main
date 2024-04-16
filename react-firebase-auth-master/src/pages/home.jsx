@@ -29,12 +29,6 @@ export const Home = ({ user }) => {
   const [userName, setUserName] = useState("");
   const [isSignUpActive, setIsSignUpActive] = useState(true);
 
-  // const handleSignInWithLinkToEmail = ()=>{
-  //   sendSignInLinkToEmail(auth,email,actionConfig).then(()=>{
-  //     window.localStorage.setItem('emailForSignIn', email);
-  //   })
-  // }
-
   const handleMethodChange = () => {
     setIsSignUpActive(!isSignUpActive);
   };

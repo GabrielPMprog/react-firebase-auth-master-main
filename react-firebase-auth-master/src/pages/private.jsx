@@ -4,8 +4,9 @@ import { auth } from "../firebase";
 // Pages
 import { ClientDashboard } from "./ClientDashboard";
 import { DisabledClientDashboard } from "./DisabledClientDashboard";
+import { Dashboard } from "./Dashboard";
 
-import '../styles/private.css'
+import "../styles/private.css";
 
 export const Private = (props) => {
   const handleSignOut = () => {
@@ -14,12 +15,20 @@ export const Private = (props) => {
       .catch((error) => console.log(error));
   };
 
-  return (
-    <section className= 'privateContainer'>
-      {auth.currentUser.emailVerified  ? <ClientDashboard /> : <DisabledClientDashboard />}
-      <h2>Bem vindo, {props.user.displayName}!</h2>
-      <button onClick={handleSignOut}>Sign Out</button>
-    <input type="file" />
-    </section>
-  );
+  if (auth.currentUser.email === "admlogin@gmail.com") {
+    return <Dashboard />;
+  } else {
+    return (
+      <section className="privateContainer">
+        {auth.currentUser.emailVerified ? (
+          <ClientDashboard />
+        ) : (
+          <DisabledClientDashboard />
+        )}
+        <h2>Bem vindo, {props.user.displayName}!</h2>
+        <button onClick={handleSignOut}>Sign Out</button>
+        <input type="file" />
+      </section>
+    );
+  }
 };

@@ -12,7 +12,7 @@ export const Dashboard = () => {
     <div>
         <ul>
             <li>
-                <h2>{user.displayName}</h2>
+                <h2>Adm Login</h2>
               
                 </li>
         </ul>
