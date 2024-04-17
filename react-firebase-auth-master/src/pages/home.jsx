@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import {
   createUserWithEmailAndPassword,
@@ -10,6 +10,16 @@ import {
   sendPasswordResetEmail,
   sendSignInLinkToEmail,
 } from "firebase/auth";
+
+import {
+  getDatabase,
+  ref,
+  child,
+  get,
+  set,
+  update,
+  remove,
+} from "firebase/database";
 
 import { FaGoogle } from "react-icons/fa";
 
@@ -21,11 +31,12 @@ import { GoogleAuthProvider } from "firebase/auth";
 const provider = new GoogleAuthProvider();
 
 export const Home = ({ user }) => {
+  const db = getDatabase();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [popupMessage, setPopupMessage] = useState("");
-  const [popupTimer, setPopupTimer] = useState("disabledPopup")
+  const [popupTimer, setPopupTimer] = useState("disabledPopup");
   const [userName, setUserName] = useState("");
   const [isSignUpActive, setIsSignUpActive] = useState(true);
 
@@ -64,6 +75,14 @@ export const Home = ({ user }) => {
         const user = userCredential.user;
         userCredential.user.displayName = userName;
         console.log(user);
+
+        set(ref(db, "UserSet/" + user.displayName), {
+          userName: { name: user.displayName, email: user.email },
+        }).then(()=>{
+          console.log('Data added successfully!')
+        }).catch((err)=>{
+          console.log(err)
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -102,33 +121,34 @@ export const Home = ({ user }) => {
         if (errorCode == "auth/invalid-login-credentials") {
           handleChangePopup("Login e senha não conferem");
         }
-        if(errorCode == "auth/too-many-requests"){
-          handleChangePopup("Atualize a página e espere alguns segundos")
+        if (errorCode == "auth/too-many-requests") {
+          handleChangePopup("Atualize a página e espere alguns segundos");
         }
         console.log(errorCode);
       });
   };
 
-  const handleForgotPassword = () => { 
-    sendPasswordResetEmail(auth, email).then(() => {
-      alert(
-        `Um email de verificação foi enviado ao seu e-mail: ${email}!`
-      );
-    }).catch((err)=>{
-      const errorCode = err.code
-      if(errorCode == 'auth/missing-email'){
-        handleChangePopup('Digite seu e-mail')
-      }
-      console.log(errorCode)
-    });
+  const handleForgotPassword = () => {
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert(`Um email de verificação foi enviado ao seu e-mail: ${email}!`);
+      })
+      .catch((err) => {
+        const errorCode = err.code;
+        if (errorCode == "auth/missing-email") {
+          handleChangePopup("Digite seu e-mail");
+        }
+        console.log(errorCode);
+      });
   };
 
-  const handleChangePopup = (message)=>{
-    setPopupMessage(message)
-    setTimeout(()=>{setPopupTimer("abledPopup")}, 3000)
-    setPopupTimer('disabledPopup')
-
-  }
+  const handleChangePopup = (message) => {
+    setPopupMessage(message);
+    setTimeout(() => {
+      setPopupTimer("abledPopup");
+    }, 3000);
+    setPopupTimer("disabledPopup");
+  };
 
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);

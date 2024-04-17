@@ -5,8 +5,7 @@ import { auth } from "./firebase";
 import { ProtectedRoute } from "./components/protectedRoute";
 import { Home } from "./pages/home";
 import { Private } from "./pages/private";
-import {AdmLogin} from './pages/AdmLogin'
-import {Dashboard} from './pages/Dashboard'
+import { Dashboard } from "./pages/Dashboard";
 
 import "./App.css";
 import { useEffect, useState } from "react";
@@ -14,6 +13,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [user, setUser] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -36,8 +36,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route index path="/" element={<Home user={user}></Home>}></Route>
-        <Route path="/admlogin" element={<AdmLogin />}></Route>
-<Route path="/dashboard" user={user} element={<Dashboard />}></Route>
+        <Route path="/dashboard" user={user} element={<Dashboard />}></Route>
         <Route
           path="/private"
           element={
