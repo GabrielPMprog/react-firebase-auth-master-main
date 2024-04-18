@@ -13,12 +13,7 @@ import {
 import {
   getDatabase,
   ref,
-  child,
-  get,
   set,
-  update,
-  remove,
-  onValue,
 } from "firebase/database";
 
 import { FaGoogle } from "react-icons/fa";
