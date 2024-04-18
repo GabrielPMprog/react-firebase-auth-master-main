@@ -1,57 +1,50 @@
-import { getAuth } from "firebase/auth";
+import { getDatabase, ref, onValue } from "firebase/database";
 
-import {
-  getDatabase,
-  ref,
-  child,
-  get,
-  set,
-  update,
-  remove,
-  onValue,
-} from "firebase/database";
-
-const auth = getAuth();
-const user = auth.currentUser;
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
 import "../styles/Dashboard.css";
 import { useEffect, useState } from "react";
 
 export const Dashboard = () => {
-  const [users, setUsers] = useState([]);
-
-
+  const [users, setUsers] = useState(null);
   const db = getDatabase();
 
   useEffect(() => {
     onValue(ref(db), (snapshot) => {
-      setUsers([]);
       const data = snapshot.val();
       if (data !== null) {
         Object.values(data).map((user) => {
-          setUsers((oldArray) => [...oldArray, user]);
-         
-          console.log(user)
+          setUsers(user);
+       
         });
       }
     });
   }, []);
 
-
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => console.log("Sign Out"))
+      .catch((error) => console.log(error));
+  };
 
   return (
-    <div>
-      <ul>
-        <li>
-          <h2>Adm Login</h2>
-          {users.map((user)=>(
-            <>
-            <h1>{user.userName}</h1>
-            </>
-          ))}
-         
-        </li>
-      </ul>
+    <div className="dashboardContainer">
+      <h1>Lista de Usuários</h1>
+      {users && Object.keys(users).map((userName) => {
+        const user = users[userName];
+        return (
+          <div key={userName} className="dashboardComponent">
+            <h2>Nome de Usuário: {user.userName.name}</h2>
+            <p>email: {user.userName.email}</p>
+          <input type="button"  value={'editar'}/>
+          <input type="button" value={'excluir'} />
+
+          </div>
+        );
+      })}
+
+      <button onClick={handleSignOut}>Sign Out</button>
     </div>
   );
 };

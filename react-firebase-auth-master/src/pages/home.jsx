@@ -8,7 +8,6 @@ import {
   signInWithPopup,
   sendEmailVerification,
   sendPasswordResetEmail,
-  sendSignInLinkToEmail,
 } from "firebase/auth";
 
 import {
@@ -19,6 +18,7 @@ import {
   set,
   update,
   remove,
+  onValue,
 } from "firebase/database";
 
 import { FaGoogle } from "react-icons/fa";
@@ -78,11 +78,13 @@ export const Home = ({ user }) => {
 
         set(ref(db, "UserSet/" + user.displayName), {
           userName: { name: user.displayName, email: user.email },
-        }).then(()=>{
-          console.log('Data added successfully!')
-        }).catch((err)=>{
-          console.log(err)
-        });
+        })
+          .then(() => {
+            console.log("Data added successfully!");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((error) => {
         const errorCode = error.code;
