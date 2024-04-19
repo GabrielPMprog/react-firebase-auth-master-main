@@ -13,3 +13,10 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+
+// const firebaseAdminConfig({
+//   credential: admin.credential.applicationDefault(),
+//   databaseURL: "https://blu-comercial.firebaseio.com"
+// })
+
+// export const admin = initializeApp(firebaseAdminConfig)

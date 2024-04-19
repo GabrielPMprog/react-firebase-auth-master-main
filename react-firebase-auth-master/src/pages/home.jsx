@@ -72,7 +72,7 @@ export const Home = ({ user }) => {
         console.log(user);
 
         set(ref(db, "UserSet/" + user.displayName), {
-          userName: { name: user.displayName, email: user.email },
+          userName: { name: user.displayName, email: user.email, id: user.uid },
         })
           .then(() => {
             console.log("Data added successfully!");
