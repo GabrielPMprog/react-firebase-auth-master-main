@@ -1,9 +1,7 @@
 import { getDatabase, ref, onValue } from "firebase/database";
 
-import { signOut } from "firebase/auth";
+import { deleteUser, signOut } from "firebase/auth";
 import { auth } from "../firebase";
-
-
 
 import "../styles/Dashboard.css";
 import { useEffect, useState } from "react";
@@ -29,11 +27,8 @@ export const Dashboard = () => {
       .catch((error) => console.log(error));
   };
 
-  const handleDelete = (user) => {
- 
-// const databaseRef = firebase.database().ref(user)
-// databaseRef.remove()
-
+  const handleDelete = () => {
+  //  
   };
 
   return (
@@ -60,7 +55,7 @@ export const Dashboard = () => {
                     type="button"
                     className="deleteButton"
                     value={"excluir"}
-                    onClick={handleDelete(user)}
+                    onClick={handleDelete}
                   />
                   <input type="file" className="fileButton" />
                 </div>
