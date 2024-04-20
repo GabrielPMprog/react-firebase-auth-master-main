@@ -3,7 +3,7 @@ import { getDatabase, ref, onValue, remove } from "firebase/database";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 
-// import {admin} from 'firebase-admin'
+import admin from "../../firebaseAdmin";
 
 import "../styles/Dashboard.css";
 import { useEffect, useState } from "react";
@@ -31,6 +31,8 @@ export const Dashboard = () => {
 
   const handleDelete = (userNameToDelete, idToDelete) => {
     remove(ref(db, "UserSet/" + userNameToDelete));
+admin.deleteUser(idToDelete)
+
   };
 
   return (

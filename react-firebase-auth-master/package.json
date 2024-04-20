@@ -1,6 +1,7 @@
 {
   "name": "react-firebase-auth",
   "private": true,
+  "proxy": "https://localhost:3000/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
