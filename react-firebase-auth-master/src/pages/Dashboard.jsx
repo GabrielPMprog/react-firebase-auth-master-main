@@ -1,9 +1,9 @@
 import { getDatabase, ref, onValue, remove } from "firebase/database";
 
 import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../../firebaseConfig";
 
-import admin from "../../firebaseAdmin";
+import adm from '../../../backend/src/index'
 
 import "../styles/Dashboard.css";
 import { useEffect, useState } from "react";
@@ -30,9 +30,15 @@ export const Dashboard = () => {
   };
 
   const handleDelete = (userNameToDelete, idToDelete) => {
-    remove(ref(db, "UserSet/" + userNameToDelete));
-admin.deleteUser(idToDelete)
-
+    // remove(ref(db, "UserSet/" ));
+    adm.auth()
+      .deleteUser(idToDelete)
+      .then(() => {
+        console.log("usuário deletado com sucesso: ", userNameToDelete);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

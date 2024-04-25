@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyAIerjOT5OBlDUxGonU-wHLrfGxL-xx51E",
   authDomain: "blu-comercial.firebaseapp.com",
@@ -14,3 +15,4 @@ const firebaseConfig = {
 // Utilize o Firebase Auth como antes
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+
