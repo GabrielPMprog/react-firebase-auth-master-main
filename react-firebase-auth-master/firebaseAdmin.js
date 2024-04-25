@@ -1,10 +1,4 @@
-var admin = require("firebase-admin");
+import { initializeApp } from 'firebase-admin/app';
 
-var serviceAccount = require("path/to/serviceAccountKey.json");
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://blu-comercial-default-rtdb.firebaseio.com"
-});
-
-export default admin
+const app = initializeApp();
+const auth = app.getAuth() 
