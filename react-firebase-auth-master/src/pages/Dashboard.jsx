@@ -28,16 +28,13 @@ export const Dashboard = () => {
   };
 
   const handleDelete = (userNameToDelete, idToDelete) => {
-    remove(ref(db, "UserSet/" + userNameToDelete )).then();
-    // admin.auth()
-    //   .deleteUser(idToDelete)
-    //   .then(() => {
-    //     console.log("usuário deletado com sucesso: ", userNameToDelete);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
+    remove(ref(db, "UserSet/" + userNameToDelete )).then(()=>{
+      console.log(userNameToDelete)
+      reload()
+    }).catch((err)=>{
+      console.log(err)
+    });
+  
     fetch(`http://localhost:3000/api/deleteUser/${idToDelete}`, {
       method: "DELETE",
     })
