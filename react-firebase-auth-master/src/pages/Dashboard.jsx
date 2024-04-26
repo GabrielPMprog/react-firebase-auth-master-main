@@ -24,7 +24,7 @@ export const Dashboard = () => {
 
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => console.log("Sign Out"))
+      .then(() => console.log("Sign Out", auth.name))
       .catch((error) => console.log(error));
   };
 
