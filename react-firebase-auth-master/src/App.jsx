@@ -6,6 +6,7 @@ import { ProtectedRoute } from "./components/protectedRoute";
 import { Home } from "./pages/home";
 import { Private } from "./pages/private";
 import { Dashboard } from "./pages/Dashboard";
+import { EditUser } from "./pages/editUser";
 
 import "./App.css";
 import { useEffect, useState } from "react";
@@ -37,6 +38,8 @@ function App() {
       <Routes>
         <Route index path="/" element={<Home user={user}></Home>}></Route>
         <Route path="/dashboard" user={user} element={<Dashboard />}></Route>
+        <Route path={`/editUser/:id`} user={user} element={<EditUser />}></Route>
+
         <Route
           path="/private"
           element={

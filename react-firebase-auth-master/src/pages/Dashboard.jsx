@@ -5,6 +5,7 @@ import { auth } from "../../firebaseConfig";
 
 import "../styles/Dashboard.css";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export const Dashboard = () => {
   const [users, setUsers] = useState(null);
@@ -28,13 +29,14 @@ export const Dashboard = () => {
   };
 
   const handleDelete = (userNameToDelete, idToDelete) => {
-    remove(ref(db, "UserSet/" + userNameToDelete )).then(()=>{
-      console.log(userNameToDelete)
-      reload()
-    }).catch((err)=>{
-      console.log(err)
-    });
-  
+    remove(ref(db, "UserSet/" + userNameToDelete))
+      .then(() => {
+        console.log(userNameToDelete);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     fetch(`http://localhost:3000/api/deleteUser/${idToDelete}`, {
       method: "DELETE",
     })
@@ -42,6 +44,8 @@ export const Dashboard = () => {
       .catch((error) => {
         console.log(error);
       });
+
+    location.reload();
   };
 
   return (
@@ -60,11 +64,14 @@ export const Dashboard = () => {
                 <p>{user.userName.email}</p>
                 <p>{user.userName.id}</p>
                 <div className="dashboardButtons">
-                  <input
-                    type="button"
-                    className="editButton"
-                    value={"editar"}
-                  />
+                  <Link
+                    to={{
+                      pathname: `/editUser/${user.userName.name}`,
+                    }}
+                  >
+                    Editar usuário
+                  </Link>
+
                   <input
                     type="button"
                     className="deleteButton"
