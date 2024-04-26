@@ -15,12 +15,10 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export function EditUser() {
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState("");
 
   const { id } = useParams();
   const db = getDatabase();
-
-  const userId = localStorage.getItem(id); // Obtém o ID do usuário do localStorage
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -29,7 +27,7 @@ export function EditUser() {
         const snapshot = await get(userRef);
         if (snapshot.exists()) {
           setUser(snapshot.val());
-         
+          console.log(user);
         } else {
           console.log("Usuário não encontrado.");
         }
@@ -37,16 +35,13 @@ export function EditUser() {
         console.error("Erro ao buscar usuário:", error);
       }
     };
-
-    if (userId) {
-        fetchUser();
-      }
-  }, [id]);
+    fetchUser();
+  }, []);
 
   return (
     <form>
-      <input type="text" placeholder={user.userName.name} />
-      <input type="email" placeholder={user.userName.email} />
+      {/* <input type="text" placeholder={user.userName.name} />
+      <input type="email" placeholder={user.userName.email} /> */}
       <input type="file" />
       <input type="submit" />
       <Link
