@@ -64,9 +64,10 @@ export const Dashboard = () => {
                 <p>{user.userName.email}</p>
                 <p>{user.userName.id}</p>
                 <div className="dashboardButtons">
-                  <Link
+                  <Link 
                     to={{
                       pathname: `/editUser/${user.userName.name}`,
+                      
                     }}
                   >
                     Editar usuário

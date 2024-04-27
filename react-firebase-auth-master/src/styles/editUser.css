@@ -1,0 +1,16 @@
+.editContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.input{
+    margin-bottom: 10px;
+    width: 20%;
+    padding: 8px;
+    border: 1px solid;
+    border-radius: 3px;
+
+}
