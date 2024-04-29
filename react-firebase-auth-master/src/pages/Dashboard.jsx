@@ -28,10 +28,10 @@ export const Dashboard = () => {
       .catch((error) => console.log(error));
   };
 
-  const handleDelete = (userNameToDelete, idToDelete) => {
-    remove(ref(db, "UserSet/" + userNameToDelete))
+  const handleDelete = async (idToDelete) => {
+   await remove(ref(db, "UserSet/" + idToDelete))
       .then(() => {
-        console.log(userNameToDelete);
+        console.log(idToDelete);
       })
       .catch((err) => {
         console.log(err);
@@ -45,7 +45,7 @@ export const Dashboard = () => {
         console.log(error);
       });
 
-    location.reload();
+    
   };
 
   return (
@@ -64,10 +64,9 @@ export const Dashboard = () => {
                 <p>{user.userName.email}</p>
                 <p>{user.userName.id}</p>
                 <div className="dashboardButtons">
-                  <Link 
+                  <Link
                     to={{
-                      pathname: `/editUser/${user.userName.name}`,
-                      
+                      pathname: `/editUser/${user.userName.id}`,
                     }}
                   >
                     Editar usuário
@@ -78,7 +77,7 @@ export const Dashboard = () => {
                     className="deleteButton"
                     value={"excluir"}
                     onClick={() => {
-                      handleDelete(user.userName.name, user.userName.id);
+                      handleDelete(user.userName.id);
                     }}
                   />
                   <input type="file" className="fileButton" />

@@ -3,7 +3,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import { auth } from "./firebase";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
-import { ProtectedRouteAdmin } from "./components/ProtectedRouteAdmin.jsx";
+import { ProtectedRouteAdmin } from './components/ProtectedRouteAdmin.jsx';
 
 import { Home } from "./pages/home";
 import { Private } from "./pages/private";

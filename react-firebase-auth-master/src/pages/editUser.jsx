@@ -51,7 +51,7 @@ export function EditUser() {
     const userRef = ref(db, `UserSet/${id}/userName`);
 
     // Cria um objeto com os novos dados do usuário
-    const newData = {
+    const newData = { 
       name: name,
       email: email,
     };
@@ -67,7 +67,7 @@ export function EditUser() {
 
     //Enviando dados para o backend
 
-    fetch(`/api/updateUser/${user.userName.id}`, {
+    fetch(`http://localhost:3000/api/update/${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: name, email: email, }),

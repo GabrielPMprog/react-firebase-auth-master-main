@@ -71,7 +71,7 @@ export const Home = ({ user }) => {
         userCredential.user.displayName = userName;
         console.log(user);
 
-        set(ref(db, "UserSet/" + user.displayName), {
+        set(ref(db, "UserSet/" + user.uid), {
           userName: { name: user.displayName, email: user.email, id: user.uid },
         })
           .then(() => {

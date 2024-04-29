@@ -29,8 +29,8 @@ app.delete("/api/deleteUser/:userId", async (req, res) => {
   }
 });
 
-app.post("/api/updateUser/:userId", async (req, res) => {
-  const id = req.params.userId;
+app.post("/api/update/:userid", async (req, res) => {
+  const id = req.params.userid;
   const newData = req.body; // Os novos dados que você deseja atualizar
 
   console.log("Novos dados:", newData);
