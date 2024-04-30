@@ -5,22 +5,16 @@ import { listAll, ref as sref, getDownloadURL } from "firebase/storage";
 
 export const ClientDashboard = () => {
   const [imageList, setImageList] = useState([]);
+  const [fileName, setFileName] = useState([]);
 
-  const getTodayDate = () => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const day = String(today.getDate()).padStart(2, "0");
-    return `${day}-${month}-${year}`;
-  };
-
-  const imageRef = sref(storage, `${auth.currentUser.uid}/${getTodayDate()}`);
+  const imageRef = sref(storage, `${auth.currentUser.uid}/`);
 
   useEffect(() => {
     listAll(imageRef).then((res) => {
       res.items.forEach((item) => {
         getDownloadURL(item).then((url) => {
           setImageList((prev) => [...prev, url]);
+          setFileName(item.name);
         });
       });
     });
@@ -28,10 +22,13 @@ export const ClientDashboard = () => {
 
   return (
     <div>
-      <h1>{auth.currentUser.displayName}</h1>
       <h1>{auth.currentUser.email}</h1>
-      {imageList.map((url) => {
-        return <a href={url} key={url} download={`Blu-${getTodayDate()}`}>Instale aqui seu arquivo</a>;
+      {imageList.map((url, index) => {
+        return (
+          <a href={url} download={url} key={url + index}>
+            {fileName} 
+          </a>
+        );
       })}
     </div>
   );

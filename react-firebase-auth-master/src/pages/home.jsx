@@ -10,11 +10,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 
-import {
-  getDatabase,
-  ref,
-  set,
-} from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 
 import { FaGoogle } from "react-icons/fa";
 
@@ -68,7 +64,7 @@ export const Home = ({ user }) => {
         });
 
         const user = userCredential.user;
-        userCredential.user.displayName = userName;
+        user.displayName = userName;
         console.log(user);
 
         set(ref(db, "UserSet/" + user.uid), {
@@ -149,8 +145,7 @@ export const Home = ({ user }) => {
 
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
-  const handleConfirmPasswordChange = (event) =>
-    setConfirmPassword(event.target.value);
+  const handleConfirmPasswordChange = (event) => setConfirmPassword(event.target.value);
   const handleNameChange = (event) => setUserName(event.target.value);
 
   if (user) {

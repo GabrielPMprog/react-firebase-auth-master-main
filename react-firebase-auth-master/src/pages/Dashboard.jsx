@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 export const Dashboard = () => {
   const [users, setUsers] = useState(null);
   const [file, setFile] = useState(null);
+  const [searchName, setSearchName] = useState("");
   const db = getDatabase();
 
   useEffect(() => {
@@ -52,20 +53,20 @@ export const Dashboard = () => {
       });
   };
 
-  const getTodayDate =()=> {
+  const getTodayDate = () => {
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
     return `${day}-${month}-${year}`;
-  } 
+  };
 
-const handleUpload = (id) => {
+  const handleUpload = (id) => {
     if (file == null) {
       return;
     }
 
-    const imageRef = sref(storage, `${id}/${getTodayDate()}/${file.name + v4()}`);
+    const imageRef = sref(storage, `${id}/${file.name} - ${getTodayDate()}`);
     uploadBytes(imageRef, file)
       .then(() => {
         console.log("Upload do arquivo foi concluido");
@@ -75,12 +76,28 @@ const handleUpload = (id) => {
       });
   };
 
+  const handleSearch = () => {
+    // Lógica de pesquisa aqui
+    console.log("Pesquisando usuário pelo nome:", searchName);
+    // Implemente aqui a lógica para buscar usuários pelo nome
+  };
+
   return (
     <div className="mainDashboard">
       <div className="actionsButton">
         <button onClick={handleSignOut}>Sign Out</button>
       </div>
       <div className="dashboardContainer">
+        <div className="searchContainer">
+          <input
+            type="text"
+            value={searchName}
+            onChange={(e) => setSearchName(e.target.value)}
+            placeholder="Pesquisar por nome"
+          />
+          <button onClick={handleSearch}>Pesquisar</button>
+        </div>
+
         <h1>Lista de Usuários</h1>
         {users &&
           Object.keys(users).map((userName) => {
@@ -106,9 +123,8 @@ const handleUpload = (id) => {
                   <input
                     type="file"
                     onChange={(e) => {
-                      setFile(e.target.files);
+                      setFile(e.target.files[0]);
                     }}
-                    multiple
                   />
                   <button
                     onClick={() => {
