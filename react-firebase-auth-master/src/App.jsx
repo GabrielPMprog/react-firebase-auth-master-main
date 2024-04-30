@@ -3,12 +3,12 @@ import { onAuthStateChanged } from "firebase/auth";
 
 import { auth } from "./firebase";
 import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
-import { ProtectedRouteAdmin } from './components/ProtectedRouteAdmin.jsx';
+import { ProtectedRouteAdmin } from "./components/ProtectedRouteAdmin.jsx";
+import { ProtectedRouteAdminEdit } from "./components/ProtectedRouteAdminEdit.jsx";
 
 import { Home } from "./pages/home";
 import { Private } from "./pages/private";
 
-import { EditUser } from "./pages/editUser";
 
 import "./App.css";
 import { useEffect, useState } from "react";
@@ -35,21 +35,18 @@ function App() {
     return <h2>Loading...</h2>;
   }
 
-  var admin = false;
-
   return (
     <BrowserRouter>
       <Routes>
         <Route index path="/" element={<Home user={user}></Home>}></Route>
-        <Route
-          path={`/editUser/:id`}
-          user={user}
-          element={<EditUser />}
-        ></Route>
 
         <Route
           path="/dashboard"
-          element={<ProtectedRouteAdmin admin={admin}></ProtectedRouteAdmin>}
+          element={<ProtectedRouteAdmin></ProtectedRouteAdmin>}
+        ></Route>
+        <Route
+          path={`/editUser/:id`}
+          element={<ProtectedRouteAdminEdit></ProtectedRouteAdminEdit>}
         ></Route>
         <Route
           path="/private"

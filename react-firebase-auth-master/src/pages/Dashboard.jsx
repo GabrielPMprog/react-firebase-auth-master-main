@@ -1,5 +1,10 @@
 import { getDatabase, ref, onValue, remove } from "firebase/database";
 
+import { storage } from "../firebase";
+import { v4 } from "uuid";
+import { uploadBytes } from "firebase/storage";
+import { ref as sref } from "firebase/storage";
+
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 
@@ -9,6 +14,7 @@ import { Link } from "react-router-dom";
 
 export const Dashboard = () => {
   const [users, setUsers] = useState(null);
+  const [file, setFile] = useState(null);
   const db = getDatabase();
 
   useEffect(() => {
@@ -29,7 +35,7 @@ export const Dashboard = () => {
   };
 
   const handleDelete = async (idToDelete) => {
-   await remove(ref(db, "UserSet/" + idToDelete))
+    await remove(ref(db, "UserSet/" + idToDelete))
       .then(() => {
         console.log(idToDelete);
       })
@@ -44,8 +50,29 @@ export const Dashboard = () => {
       .catch((error) => {
         console.log(error);
       });
+  };
 
-    
+  const getTodayDate =()=> {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${day}-${month}-${year}`;
+  } 
+
+const handleUpload = (id) => {
+    if (file == null) {
+      return;
+    }
+
+    const imageRef = sref(storage, `${id}/${getTodayDate()}/${file.name + v4()}`);
+    uploadBytes(imageRef, file)
+      .then(() => {
+        console.log("Upload do arquivo foi concluido");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -64,11 +91,7 @@ export const Dashboard = () => {
                 <p>{user.userName.email}</p>
                 <p>{user.userName.id}</p>
                 <div className="dashboardButtons">
-                  <Link
-                    to={{
-                      pathname: `/editUser/${user.userName.id}`,
-                    }}
-                  >
+                  <Link to={`/editUser/${user.userName.id}`}>
                     Editar usuário
                   </Link>
 
@@ -80,7 +103,20 @@ export const Dashboard = () => {
                       handleDelete(user.userName.id);
                     }}
                   />
-                  <input type="file" className="fileButton" />
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      setFile(e.target.files);
+                    }}
+                    multiple
+                  />
+                  <button
+                    onClick={() => {
+                      handleUpload(user.userName.id);
+                    }}
+                  >
+                    Enviar Arquivos
+                  </button>
                 </div>
               </div>
             );

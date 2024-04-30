@@ -25,9 +25,7 @@ export const Private = (props) => {
         ) : (
           <DisabledClientDashboard />
         )}
-        <h2>Bem vindo, {props.user.displayName}!</h2>
         <button onClick={handleSignOut}>Sign Out</button>
-        <input type="file" />
       </section>
     );
   }
