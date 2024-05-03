@@ -26,6 +26,7 @@
 .legendContainer {
   display: flex;
   justify-content: center;
+  margin-top: 30px;
 }
 
 .legend {
@@ -89,4 +90,25 @@
 
 .abledPopup {
   display: none;
+}
+
+.inputContainer {
+  position: relative;
+}
+
+.showPasswordButton {
+  position: absolute;
+  right: 10px; /* Posicionamento à direita */
+  top: 60%; /* Centralizado verticalmente */
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.linkContainer{
+
+margin-top: 8px;
+
 }

@@ -1,0 +1,24 @@
+.dashboardClientContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboardClientContainer h1 {
+  margin-bottom: 10px;
+}
+
+.dashboardClientContainer ul {
+  list-style: none;
+}
+
+.dashboardClientContainer li{
+    margin-bottom: 5px;
+    padding: 5px;
+    border-bottom: 1px solid black;
+    
+}
+
+.dashboardClientContainer a {
+    text-decoration: none;
+}

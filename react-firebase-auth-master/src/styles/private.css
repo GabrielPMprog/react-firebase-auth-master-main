@@ -10,3 +10,15 @@
 .containerDisabled{
   opacity: 0.5;
 }
+
+.signOutBtn{
+  padding: 5px;
+  border: none;
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  display: flex;
+ margin-top: 10px;
+cursor: pointer;
+border: 1px solid rgb(109, 0, 0);
+}

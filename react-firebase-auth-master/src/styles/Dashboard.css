@@ -8,6 +8,7 @@
 .actionsButton {
   display: flex;
   justify-content: end;
+  margin: 15px;
 }
 
 .actionsButton button {
@@ -23,37 +24,168 @@
   background-color: red;
 }
 
+.searchContainer {
+  margin-top: 20px;
+}
+.searchContainer input {
+  padding: 5px;
+  width: 320px;
+  border-radius: 15px;
+  border: 1px solid black;
+}
+
 .dashboardComponent {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  margin-top: 20px;
+  justify-content: space-between;
+  margin-top: 30px;
   border-bottom: 1px solid black;
   width: 80%;
+}
+
+.user {
+  display: flex;
+}
+
+.userName {
+  display: flex;
+  margin-left: 15px;
+}
+
+.userName p {
+  margin-left: 5px;
 }
 
 .dashboardButtons {
   border: none;
   background-color: transparent;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
-.dashboardButtons input {
-  width: 150px;
-  padding: 5px;
-  margin-top: 10px;
-  margin-right: 5px;
-  border-radius: 5px;
-  border: 1px solid black;
+.deleteButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 16px;
   cursor: pointer;
+  border-radius: 4px;
+  width: 150px;
+}
+
+.editButton {
+
+  text-align: center;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  text-decoration: none;
+display: inline-block;
+  margin-right: 10px;
+  width: 150px;
+
 }
 
 .editButton:hover {
   color: white;
-  background-color: blue;
+  background-color: #088cf8;
 }
 
 .deleteButton:hover {
-  color: white;
-  background-color: red;
+  background-color: #d32f2f; /* Cor de fundo vermelha mais escura ao passar por cima */
+}
+
+.inputFile {
+  padding: 10px;
+}
+
+
+.userName{
+  display: flex;
+ align-items: center;
+  
+}
+
+
+@media (max-width:1000px) {
+  .editButton, .deleteButton{
+    width: 100px;
+    margin-bottom:10px
+   }
+   
+}
+
+@media(max-width:850px){
+  .dashboardButtons{
+    display: flex;
+    flex-direction: column;
+  }
+ .editButton, .deleteButton{
+  width: 100px;
+  margin-bottom:10px
+ }
+}
+
+@media(max-width:700px){
+  .userName{
+    display: flex;
+    flex-direction: column;
+    
+  }
+  .dashboardButtons{
+    flex-direction: row;
+  }
+}
+
+@media (max-width:600px) {
+  
+  .dashboardButtons{
+    flex-direction: column;
+  }
+
+}
+
+@media(max-width:480px){
+
+.userName h3{
+  font-size: 17px;
+}
+
+.userName p{
+  margin-top: 5px ;
+  display: flex;
+  align-self: self-start;
+}
+
+ .editButton, .deleteButton{
+  width: 70px;
+  margin-bottom:10px
+ }
+}
+
+@media(max-width:410px){
+
+.dashboardComponent{
+
+  flex-direction: column;
+}
+
+.searchContainer input{ 
+  width: 250px;
+}
+
+.dashboardButtons{
+flex-direction: row;
+margin-top: 10px;
+}
+
+.editButton, .deleteButton{
+
+width: 100%;
+
+}
+
 }

@@ -2,9 +2,9 @@ import { Navigate } from "react-router-dom";
 
 import { Dashboard } from "../pages/Dashboard";
 
-export const ProtectedRouteAdmin = ({}) => {
+export const ProtectedRouteAdmin = ({admin}) => {
   return admin ? (
-    <Dashboard setAdmin={setAdmin}  />
+    <Dashboard  />
   ) : (
     <Navigate to="/"></Navigate>
   );

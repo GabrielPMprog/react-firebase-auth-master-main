@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [user, setUser] = useState(null);
   const [isFetching, setIsFetching] = useState(true);
+const admin = false
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -42,11 +43,11 @@ function App() {
 
         <Route
           path="/dashboard"
-          element={<ProtectedRouteAdmin></ProtectedRouteAdmin>}
+          element={<ProtectedRouteAdmin admin={admin}></ProtectedRouteAdmin>}
         ></Route>
         <Route
           path={`/editUser/:id`}
-          element={<ProtectedRouteAdminEdit></ProtectedRouteAdminEdit>}
+          element={<ProtectedRouteAdminEdit admin={admin}></ProtectedRouteAdminEdit>}
         ></Route>
         <Route
           path="/private"

@@ -6,11 +6,155 @@
   height: 100vh;
 }
 
-.input{
-    margin-bottom: 10px;
-    width: 20%;
-    padding: 8px;
-    border: 1px solid;
-    border-radius: 3px;
+.input {
+  margin-bottom: 10px;
+  width: 20%;
+  padding: 8px;
+  border: 1px solid;
+  border-radius: 3px;
+}
 
+.updateBtn {
+  width: 20%;
+  padding: 9px;
+  background-color: rgb(49, 49, 249);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.inputFile {
+  display: none;
+}
+.customFileUpload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  padding: 50px 50px;
+  border: 1px solid;
+  border-radius: 9;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  width: 20%;
+  font-size: 15px;
+}
+.customFileIcon {
+  margin-top: 5px;
+  font-size: 20px;
+}
+.disabled {
+  background-color: rgb(78, 78, 165);
+
+  cursor: not-allowed;
+}
+
+.userFiles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.userFiles h2 {
+  margin-bottom: 10px;
+}
+
+.listInputFile {
+  list-style: none;
+}
+
+.listFile {
+  list-style: none;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+  padding: 10px;
+}
+
+.listFileLink {
+  margin-right: 10px;
+}
+
+.uploadList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.trashDelete {
+  font-size: 25px;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.trashDelete:hover {
+  color: red;
+}
+
+@media (max-width: 1400px) {
+  .input {
+    width: 30%;
+  }
+
+  .customFileUpload {
+    width: 30%;
+  }
+
+  .updateBtn {
+    width: 30%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .input {
+    width: 40%;
+  }
+
+  .customFileUpload {
+    width: 40%;
+  }
+
+  .updateBtn {
+    width: 40%;
+  }
+}
+
+@media (max-width: 700px) {
+  .input {
+    width: 50%;
+  }
+
+  .customFileUpload {
+    width: 50%;
+  }
+
+  .updateBtn {
+    width: 50%;
+  }
+}
+
+@media (max-width: 500px) {
+  .input {
+    width: 60%;
+  }
+
+  .customFileUpload {
+    width: 60%;
+  }
+
+  .updateBtn {
+    width: 60%;
+  }
+
+  .linkFileName {
+    width: 80%;
+  }
+
+  .trashDelete {
+    display: flex;
+    align-items: start;
+    margin-left: 0;
+  }
 }

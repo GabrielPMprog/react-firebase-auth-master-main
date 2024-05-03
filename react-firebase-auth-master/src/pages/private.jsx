@@ -8,7 +8,7 @@ import { Dashboard } from "./Dashboard";
 
 import "../styles/private.css";
 
-export const Private = (props) => {
+export const Private = () => {
   const handleSignOut = () => {
     signOut(auth)
       .then(() => console.log("Sign Out"))
@@ -25,7 +25,7 @@ export const Private = (props) => {
         ) : (
           <DisabledClientDashboard />
         )}
-        <button onClick={handleSignOut}>Sign Out</button>
+        <button className="signOutBtn" onClick={handleSignOut}>Sign Out</button>
       </section>
     );
   }
