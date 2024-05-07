@@ -5,7 +5,7 @@ import { deleteObject, listAll } from "firebase/storage";
 import { ref as sref } from "firebase/storage";
 
 import { signOut } from "firebase/auth";
-import { auth } from "../../firebaseConfig";
+import { auth } from '../firebase';
 
 import "../styles/Dashboard.css";
 import { useEffect, useState } from "react";

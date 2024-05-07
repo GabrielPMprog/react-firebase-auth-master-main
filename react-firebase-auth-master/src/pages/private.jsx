@@ -15,7 +15,7 @@ export const Private = () => {
       .catch((error) => console.log(error));
   };
 
-  if (auth.currentUser.email === "admlogin@gmail.com") {
+  if (auth.currentUser.email === "contato@bluassessoriaempresarial.com.br") {
     return <Dashboard />;
   } else {
     return (

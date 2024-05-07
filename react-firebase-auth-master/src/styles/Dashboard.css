@@ -111,20 +111,29 @@ display: inline-block;
 
 
 @media (max-width:1000px) {
-  .editButton, .deleteButton{
-    width: 100px;
-    margin-bottom:10px
-   }
+  
+  .dashboardButtons{
+    display: flex;
+  }
+
    
 }
 
-@media(max-width:850px){
-  .dashboardButtons{
-    display: flex;
+@media(max-width:900px){
+  
+
+  .dashboardComponent{
     flex-direction: column;
   }
+
+.dashboardButtons{
+  display: flex;
+  margin-top: 10px;
+  width: 70%;
+}
+
  .editButton, .deleteButton{
-  width: 100px;
+  width: 100%;
   margin-bottom:10px
  }
 }
@@ -140,13 +149,6 @@ display: inline-block;
   }
 }
 
-@media (max-width:600px) {
-  
-  .dashboardButtons{
-    flex-direction: column;
-  }
-
-}
 
 @media(max-width:480px){
 
@@ -161,7 +163,7 @@ display: inline-block;
 }
 
  .editButton, .deleteButton{
-  width: 70px;
+  width: 70%;
   margin-bottom:10px
  }
 }
