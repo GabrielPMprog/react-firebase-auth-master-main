@@ -107,7 +107,7 @@ export function EditUser() {
 
     //Enviando dados para o backend
 
-    fetch(`http://localhost:3000/api/update/${id}`, {
+    fetch(`http://client.bluassessoriaempresarial.com.br/api/update/${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: name, email: email }),
@@ -163,7 +163,6 @@ export function EditUser() {
           console.log("Upload do arquivo foi concluído");
           setUploading(false); // Desativa o estado de upload quando o envio é concluído
           setFile(null);
-          location.reload()
         })
         .catch((err) => {
           console.log(err);

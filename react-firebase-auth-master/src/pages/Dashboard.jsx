@@ -61,7 +61,7 @@ export const Dashboard = () => {
     });
 
     // Deletar usuário da API
-    await fetch(`http://localhost:3000/api/deleteUser/${idToDelete}`, {
+    await fetch(`http://client.bluassessoriaempresarial.com.br/api/deleteUser/${idToDelete}`, {
       method: "DELETE",
     })
       .then(console.log("Usuário deletado!"))
