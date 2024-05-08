@@ -2,7 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 
 import { auth } from "./firebase";
-import { ProtectedRoute } from "./components/ProtectedRoute.jsx";
+
+import { ProtectedRoute } from "./components/protectedRoute.jsx";
 import { ProtectedRouteAdmin } from "./components/ProtectedRouteAdmin.jsx";
 import { ProtectedRouteAdminEdit } from "./components/ProtectedRouteAdminEdit.jsx";
 

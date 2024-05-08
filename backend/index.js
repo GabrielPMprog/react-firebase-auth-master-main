@@ -1,7 +1,7 @@
 const admin = require("firebase-admin");
 const cors = require("cors");
 
-const serviceAccount = require("./credentials.json");
+
 
 const express = require("express");
 const app = express();
@@ -14,7 +14,11 @@ app.use(
 );
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert({
+    projectId: process.env.PROJECT_ID,
+    clientEmail:process.env.CLIENT_EMAIL,
+    privateKey:PRIVATE_KEY_ID,
+  }),
 });
 
 app.delete("/api/deleteUser/:userId", async (req, res) => {
